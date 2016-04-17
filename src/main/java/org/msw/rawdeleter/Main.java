@@ -37,7 +37,7 @@ public class Main {
             for (final File file : list) {
                 if (file.isFile()) {
                     final String completeName = file.getName();
-                    final String[] nameAndExtension = getNameAndExtensionForOrig(completeName, extension);
+                    final String[] nameAndExtension = getNameAndExtension(completeName, extension);
                     if (nameAndExtension != null && !xmpNamesWithoutExtension.contains(nameAndExtension[0].toLowerCase())) {
                         System.out.println("deleting file " + file.getAbsolutePath());
                         file.delete();
@@ -54,7 +54,7 @@ public class Main {
             for (final File file : list) {
                 if (file.isFile()) {
                     final String completeName = file.getName();
-                    final String[] nameAndExtension = getNameAndExtensionForOrig(completeName, XMP_EXTENSION);
+                    final String[] nameAndExtension = getNameAndExtension(completeName, XMP_EXTENSION);
                     if (nameAndExtension != null) {
                         result.add(nameAndExtension[0].toLowerCase());
                     }
@@ -72,7 +72,7 @@ public class Main {
         }
 
         final String argDirFileName = argDirFile.getName();
-        final String[] nameAndExtension = getNameAndExtensionForOrig(argDirFileName, ORIG_EXTENSION);
+        final String[] nameAndExtension = getNameAndExtension(argDirFileName, ORIG_EXTENSION);
         if (nameAndExtension != null) {
             final File processingDir = new File(argDirFile.getParent(), nameAndExtension[0]);
             if (!processingDir.exists() || !processingDir.isDirectory()) {
@@ -88,7 +88,7 @@ public class Main {
         return new Dirs(origDir, argDirFile);
     }
 
-    public static String[] getNameAndExtensionForOrig(final String completeName, final String expectedExtension) {
+    public static String[] getNameAndExtension(final String completeName, final String expectedExtension) {
         if (completeName.length() > expectedExtension.length()) {
             final String name = completeName.substring(0, completeName.length() - expectedExtension.length());
             final String extension = completeName.substring(completeName.length() - expectedExtension.length());
