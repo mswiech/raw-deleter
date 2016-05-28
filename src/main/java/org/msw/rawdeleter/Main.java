@@ -12,7 +12,7 @@ public class Main {
     public static final String ORIG_EXTENSION = ".orig";
     public static final String RAW_EXTENSION = ".nef";
     public static final String JPG_EXTENSION = ".jpg";
-    public static final String XMP_EXTENSION = ".nef.xmp";
+    public static final String[] XMP_EXTENSIONS = new String[] {".nef.xmp", ".xmp"};
 
     public static void main(String[] args) {
         if (args.length < 1) {
@@ -54,9 +54,11 @@ public class Main {
             for (final File file : list) {
                 if (file.isFile()) {
                     final String completeName = file.getName();
-                    final String[] nameAndExtension = getNameAndExtension(completeName, XMP_EXTENSION);
-                    if (nameAndExtension != null) {
-                        result.add(nameAndExtension[0].toLowerCase());
+                    for (final String xmlExtension : XMP_EXTENSIONS) {
+                        final String[] nameAndExtension = getNameAndExtension(completeName, xmlExtension);
+                        if (nameAndExtension != null) {
+                            result.add(nameAndExtension[0].toLowerCase());
+                        }
                     }
                 }
 
